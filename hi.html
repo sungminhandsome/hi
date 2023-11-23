@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>저녁 추천 AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        #container {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #007acc;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007acc;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        p {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>저녁 추천 AI</h1>
+        <label for="preferences">식사 선호도를 선택하세요:</label>
+        <select id="preferences">
+            <option value="vegetarian">채식주의</option>
+            <option value="non-vegetarian">육식</option>
+            <option value="vegan">비건</option>
+            <option value="gluten-free">글루텐 프리</option>
+            <option value="korean">한식</option>
+        </select>
+        <button onclick="recommendDinner()">저녁 추천</button>
+        <p id="recommendation"></p>
+        <img id="recommended-image" src="" alt="음식 이미지">
+    </div>
+
+    <script>
+        function recommendDinner() {
+            const preferences = document.getElementById("preferences").value;
+            const vegetarianOptions = ["스파게티 마리나라 소스", "버섯 리조또", "야채 볶음"];
+            const nonVegetarianOptions = ["구운 닭가슴살과 채소", "레몬 버터 소스와 함께 연어", "소고기 타코"];
+            const veganOptions = ["콩 고추장 비빔밥", "토마토 스파게티", "아보카도 토스트"];
+            const glutenFreeOptions = ["닭가슴살 샐러드", "바닐라 요거트 스무디", "퀴노아 볼"];
+            const koreanOptions = ["비빔밥", "불고기", "김치찌개"];
+
+            const optionImages = {
+                "스파게티 마리나라 소스": "spaghetti.jpg",
+                "버섯 리조또": "risotto.jpg",
+                "야채 볶음": "vegetable-stir-fry.jpg",
+                "구운 닭가슴살과 채소": "grilled-chicken.jpg",
+                "레몬 버터 소스와 함께 연어": "salmon.jpg",
+                "소고기 타코": "taco.jpg",
+                "콩 고추장 비빔밥": "bibimbap.jpg",
+                "토마토 스파게티": "tomato-spaghetti.jpg",
+                "아보카도 토스트": "avocado-toast.jpg",
+                "닭가슴살 샐러드": "chicken-salad.jpg",
+                "바닐라 요거트 스무디": "yogurt-smoothie.jpg",
+                "퀴노아 볼": "quinoa-bowl.jpg",
+                "비빔밥": "bibimbap.jpg",
+                "불고기": "bulgogi.jpg",
+                "김치찌개": "kimchi-stew.jpg"
+            };
+
+            let recommendedDinner;
+            let recommendedImageSrc = "";
+
+            switch (preferences) {
+                case "vegetarian":
+                    recommendedDinner = getRandomOption(vegetarianOptions);
+                    break;
+                case "non-vegetarian":
+                    recommendedDinner = getRandomOption(nonVegetarianOptions);
+                    break;
+                case "vegan":
+                    recommendedDinner = getRandomOption(veganOptions);
+                    break;
+                case "gluten-free":
+                    recommendedDinner = getRandomOption(glutenFreeOptions);
+                    break;
+                case "korean":
+                    recommendedDinner = getRandomOption(koreanOptions);
+                    break;
+                default:
+                    recommendedDinner = "무엇을 추천드릴까요?";
+            }
+
+            recommendedImageSrc = optionImages[recommendedDinner];
+
+            document.getElementById("recommendation").textContent = `오늘 저녁으로 ${recommendedDinner}을(를) 추천합니다!`;
+            document.getElementById("recommended-image").src = recommendedImageSrc;
+        }
+
+        function getRandomOption(options) {
+            const randomIndex = Math.floor(Math.random() * options.length);
+            return options[randomIndex];
+        }
+    </script>
+</body>
+</html>
